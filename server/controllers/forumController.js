@@ -1,46 +1,39 @@
 var models = require('../models')
 
 module.exports = {
-  findAllQuestion : (req,res)=>{
-    models.Question.findAll({
+  findAllForum : (req,res)=>{
+    models.Forum.findAll({
       include: [
         {
-          model: models.User,
-          include: [
-            {
-              model: models.Answer,
-              include: [
-                {
-                  model:models.Vote
-                }
-              ]
-            }
-          ]
+          model: models.User
         },
         {
-          model: models.Answer
+          model: models.Comment
+        },
+        {
+          model:models.Vote
         }
       ]
     }).then(questions => {
       res.send(questions)
     })
   },
-  findQuestionById : (req,res)=>{
-    models.Question.findById(req.params.id, {
+  findForumById : (req,res)=>{
+    models.Forum.findById(req.params.id, {
       include: [
         {
-          model: models.Answer,
+          model: models.Comment,
           include: [
             {
               model: models.User
-            },
+            }
+          ]
+        },
+        {
+          model: models.Vote,
+          include: [
             {
-              model: models.Vote,
-              include: [
-                {
-                  model:models.User
-                }
-              ]
+              model:models.User
             }
           ]
         }
@@ -49,8 +42,8 @@ module.exports = {
       res.send(user)
     })
   },
-  deleteQuestion : (req,res)=>{
-    models.Question.destroy({
+  deleteForum : (req,res)=>{
+    models.Forum.destroy({
       where: {
         id: req.params.id
       }
@@ -58,10 +51,14 @@ module.exports = {
       res.send(`data has been deleted for id ${req.params.id}`)
     })
   },
-  updateQuestion : (req,res)=>{
-    models.Question.update({
+  updateForum : (req,res)=>{
+    models.Forum.update({
       title: req.body.title,
-      content: req.body.content
+      content: req.body.content,
+      price: req.body.price,
+      hash_tag: req.body.hash_tag,
+      category: req.body.category,
+      updateAt: new Date()
     }, {
       where: { id: req.params.id },
       returning: true,
@@ -72,11 +69,14 @@ module.exports = {
       res.send(result[1]);
     });
   },
-  createQuestion : (req,res)=>{
-    models.Question.create(
+  createForum : (req,res)=>{
+    models.Forum.create(
       {title: req.body.title,
        content: req.body.content,
-        UserId: req.body.UserId
+        UserId: req.body.UserId,
+        price: req.body.price,
+        hash_tag: req.body.hash_tag,
+        category: req.body.category
       }).then(function (user) {
         res.send(user)
       })

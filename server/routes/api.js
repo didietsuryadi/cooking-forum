@@ -39,7 +39,7 @@ router.put('/comment/:id', commentController.updateComment);
 
 router.delete('/comment/:id', commentController.deleteComment);
 
-//VOte Router
+//Vote Router
 router.post('/upvote', voteController.upVote);
 
 router.post('/downvote', voteController.downVote);

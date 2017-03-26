@@ -1,35 +1,29 @@
 var models = require('../models')
 
 module.exports = {
-  findAllAnswer : (req,res)=>{
-    models.Answer.findAll({
+  findAllComment : (req,res)=>{
+    models.Comment.findAll({
       include: [
         {
-          model: models.Question,
-          model: models.User,
-          include: [
-            {
-              model: models.Vote
-            }
-          ]
+          model: models.User
         }
       ]
     }).then(answers => {
       res.send(answers)
     })
   },
-  findAnswerById : (req,res)=>{
-    models.Answer.findById(req.params.id).then(function (user) {
-      res.send(user)
+  findCommentById : (req,res)=>{
+    models.Comment.findById(req.params.id).then(function (comment) {
+      res.send(comment)
     })
   },
-  findAnswerByQuestionId : (req,res)=>{
-    models.Answer.findById(req.params.id).then(function (user) {
-      res.send(user)
+  findCommentByForumId : (req,res)=>{
+    models.Comment.findById(req.params.id).then(function (comment) {
+      res.send(comment)
     })
   },
-  deleteAnswer : (req,res)=>{
-    models.Answer.destroy({
+  deleteComment : (req,res)=>{
+    models.Comment.destroy({
       where: {
         id: req.params.id
       }
@@ -37,8 +31,8 @@ module.exports = {
       res.send(`data has been deleted for id ${req.params.id}`)
     })
   },
-  updateAnswer : (req,res)=>{
-    models.Answer.update({
+  updateComment : (req,res)=>{
+    models.Comment.update({
       content:req.body.content,
       updateAt: new Date()
     }, {
@@ -51,13 +45,14 @@ module.exports = {
       res.send(result[1]);
     });
   },
-  createAnswer : (req,res)=>{
-    models.Answer.create(
-      {content:req.body.content,
+  createComment : (req,res)=>{
+    models.Comment.create(
+      {title: req.body.title,
+        content:req.body.content,
         UserId: req.body.UserId,
-        QuestionId: req.body.QuestionId
-      }).then(function (user) {
-        res.send(user)
+        ForumId: req.body.ForumId
+      }).then(function (comment) {
+        res.send(comment)
       })
     }
   }

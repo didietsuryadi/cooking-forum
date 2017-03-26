@@ -13,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
         // associations can be defined here
         Forum.belongsTo(models.User)
         Forum.hasMany(models.Comment)
-        Forum.hasMany(models.Vote
+        Forum.hasMany(models.Vote)
       }
     }
   });

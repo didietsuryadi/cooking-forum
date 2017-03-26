@@ -1,4 +1,5 @@
 var models = require('../models')
+var hash = require('password-hash')
 require('dotenv').config()
 
 module.exports = {
@@ -6,10 +7,10 @@ module.exports = {
     models.User.findAll({
       include: [
         {
-          model: models.Question,
+          model: models.Forum,
           include: [
             {
-              model: models.Answer
+              model: models.Comment
             },
             {
               model:models.Vote
@@ -38,9 +39,12 @@ module.exports = {
   updateUser : (req,res)=>{
     models.User.update({
       username: req.body.username,
+      name: req.body.fullname,
+      address: req.body.address,
       email: req.body.email,
-      fullname: req.body.fullname,
-      updateAt: new Date()
+      phone: req.body.phone,
+      image: req.body.image,
+      updatedAt: new Date()
     }, {
       where: { id: req.params.id },
       returning: true,
@@ -55,8 +59,11 @@ module.exports = {
     models.User.create(
       {username: req.body.username,
         password: hash.generate(req.body.password),
+        name: req.body.name,
+        address: req.body.address,
         email: req.body.email,
-        fullname: req.body.fullname
+        phone: req.body.phone,
+        image: req.body.image
       }).then(function (user) {
         res.send(user)
       })
