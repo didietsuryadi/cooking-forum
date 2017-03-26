@@ -7,11 +7,11 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/signin', auth.signIn)
+router.post('/signin', auth.login)
 
-router.post('/register', auth.signUp)
+router.post('/register', auth.register)
 
-router.post('/verify', auth.verifyToken)
+router.post('/verify', auth.verify)
 
 
 module.exports = router;

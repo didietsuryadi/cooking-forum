@@ -6,120 +6,91 @@
       <!--Import materialize.css-->
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
       <link rel="stylesheet" href="/css/style.css">
+      <script src="dist/sweetalert.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+      <script src="js/facebooksdk.js"></script>
+      <link href="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css" rel="stylesheet" />
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
       <title>Syanticook</title>
       <link rel="shortcut icon" href="img/cook.ico" />
     </head>
     <body>
-      <nav>
-        <div class="nav-wrapper red">
-          <a href="#" class="brand-logo"><img style="height:auto; width:150px" src="img/syanticook.png" alt=""></a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="#">Timeline</a></li>
-            <li><a href="#">Sign In</a></li>   
-            <li>
-              <a href="#" data-activates="slide-out" class="toggle">
-                <div class="chip">
-                  <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                  Welcome, Didit Suryadi
-                </div>
-              </a>
-            </li>
-            <li><a href="#">Home</a></li>
-          </ul>
+      <div id="root">
+        <nav>
+          <div class="nav-wrapper red">
+            <a href="#" class="brand-logo"><img style="height:auto; width:150px" src="img/syanticook.png" alt=""></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+              <div v-if="token !== null ">
+                <li>
+                  <a href="#" data-activates="slide-out" class="toggle">
+                    <div class="chip">
+                      <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
+                      Welcome, Didit Suryadi
+                    </div>
+                  </a>
+                </li>
+                <li><a href="#">Timeline</a></li>
+                <li><a href="#">Home</a></li>
+              </div>
+              <li><a href='#' id='signup'>Sign Up</a></li>
+              <li><a href='#' id='signin'>Sign In</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="parallax-container">
+          <div class="parallax"><img src="img/Fresh Foods.jpg"></div>
+          <div class="center">
+            <img src="img/cook.png" alt="" style="height:auto; width:400px;">
+          </div>
+          <div class="center">
+            <fb:login-button v-if="token === null" scope="public_profile,email" onlogin="checkLoginState();">Login via Facebook</fb:login-button>
+          </div>
         </div>
-      </nav>
-      <div class="parallax-container">
-       <div class="parallax"><img src="img/Fresh Foods.jpg"></div>
-       <div class="center">
-         <img src="img/cook.png" alt="" style="height:auto; width:400px;">
-       </div>
-       <div class="center">
-         <a class="btn waves-effect blue">Login via Facebook</a>
-       </div>
-     </div>
-     <div class="row">
-       <div class="carousel">
-         <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/250/250/food/1"></a>
-         <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/250/250/food/2"></a>
-         <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/250/250/food/3"></a>
-         <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/250/250/food/4"></a>
-         <a class="carousel-item" href="#five!"><img src="http://lorempixel.com/250/250/food/5"></a>
-       </div>
-       <div class="carousel-fixed-item center">
-         <a class="btn waves-effect yellow">Our Secret Receipt</a>
-       </div>
-     </div>
-      <div class="row">
-        <div class="col s12">
-          <ul class="tabs">
-            <li class="tab col s6"><a href="#test1">New Receipt</a></li>
-            <li class="tab col s6"><a class="active" href="#test2">Most Loved Food</a></li>
-          </ul>
+        <div class="row">
+          <div class="carousel">
+            <a class="carousel-item" href="#one!"><img src="http://lorempixel.com/250/250/food/1"></a>
+            <a class="carousel-item" href="#two!"><img src="http://lorempixel.com/250/250/food/2"></a>
+            <a class="carousel-item" href="#three!"><img src="http://lorempixel.com/250/250/food/3"></a>
+            <a class="carousel-item" href="#four!"><img src="http://lorempixel.com/250/250/food/4"></a>
+            <a class="carousel-item" href="#five!"><img src="http://lorempixel.com/250/250/food/5"></a>
+          </div>
+          <div class="carousel-fixed-item center">
+            <a class="btn waves-effect yellow">Our Secret Receipt</a>
+          </div>
         </div>
-        <div id="test1" class="col s12">
-          <div class="row">
-            <div class="col s12 ">
-              <div class="card horizontal">
-                <div class="card-image">
-                  <img src="http://lorempixel.com/300/190/food/6">
-                </div>
-                <div class="card-stacked">
-                  <div class="card-content">
-                    <div class="chip">
-                      <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                      Didit Suryadi
-                    </div>
-                    <p>Steak with delicious beef and flavour</p>
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs">
+              <li class="tab col s6"><a href="#test1">New Receipt</a></li>
+              <li class="tab col s6"><a class="active" href="#test2">Most Loved Food</a></li>
+            </ul>
+          </div>
+          <div id="test1" class="col s12">
+            <div class="row">
+              <div class="col s12 ">
+                <div class="card horizontal">
+                  <div class="card-image">
+                    <img src="http://lorempixel.com/300/190/food/6">
                   </div>
-                  <div class="card-action">
-                    <a href="#">View</a>
-                    <a href="#">Order</a>
+                  <div class="card-stacked">
+                    <div class="card-content">
+                      <div class="chip">
+                        <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
+                        Didit Suryadi
+                      </div>
+                      <p>Steak with delicious beef and flavour</p>
+                    </div>
+                    <div class="card-action">
+                      <a href="#">View</a>
+                      <a href="#">Order</a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col s12 ">
-              <div class="card horizontal">
-                <div class="card-image">
-                  <img src="http://lorempixel.com/300/190/food/6">
-                </div>
-                <div class="card-stacked">
-                  <div class="card-content">
-                    <div class="chip">
-                      <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                      Didit Suryadi
-                    </div>
-                    <p>Steak with delicious beef and flavour</p>
-                  </div>
-                  <div class="card-action">
-                    <a href="#">View</a>
-                    <a href="#">Order</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col s12 ">
-              <div class="card horizontal">
-                <div class="card-image">
-                  <img src="http://lorempixel.com/300/190/food/6">
-                </div>
-                <div class="card-stacked">
-                  <div class="card-content">
-                    <div class="chip">
-                      <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                      Didit Suryadi
-                    </div>
-                    <p>Steak with delicious beef and flavour</p>
-                  </div>
-                  <div class="card-action">
-                    <a href="#">View</a>
-                    <a href="#">Order</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          </div>
+          <div id="test2" class="col s12">
             <div class="col s12 ">
               <div class="card horizontal">
                 <div class="card-image">
@@ -142,152 +113,86 @@
             </div>
           </div>
         </div>
-        <div id="test2" class="col s12">
-          <div class="col s12 ">
-            <div class="card horizontal">
-              <div class="card-image">
-                <img src="http://lorempixel.com/300/190/food/6">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <div class="chip">
-                    <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                    Didit Suryadi
-                  </div>
-                  <p>Steak with delicious beef and flavour</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">View</a>
-                  <a href="#">Order</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 ">
-            <div class="card horizontal">
-              <div class="card-image">
-                <img src="http://lorempixel.com/300/190/food/6">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <div class="chip">
-                    <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                    Didit Suryadi
-                  </div>
-                  <p>Steak with delicious beef and flavour</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">View</a>
-                  <a href="#">Order</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 ">
-            <div class="card horizontal">
-              <div class="card-image">
-                <img src="http://lorempixel.com/300/190/food/6">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <div class="chip">
-                    <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                    Didit Suryadi
-                  </div>
-                  <p>Steak with delicious beef and flavour</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">View</a>
-                  <a href="#">Order</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 ">
-            <div class="card horizontal">
-              <div class="card-image">
-                <img src="http://lorempixel.com/300/190/food/6">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <div class="chip">
-                    <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                    Didit Suryadi
-                  </div>
-                  <p>Steak with delicious beef and flavour</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">View</a>
-                  <a href="#">Order</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col s12 ">
-            <div class="card horizontal">
-              <div class="card-image">
-                <img src="http://lorempixel.com/300/190/food/6">
-              </div>
-              <div class="card-stacked">
-                <div class="card-content">
-                  <div class="chip">
-                    <img src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg" alt="Contact Person">
-                    Didit Suryadi
-                  </div>
-                  <p>Steak with delicious beef and flavour</p>
-                </div>
-                <div class="card-action">
-                  <a href="#">View</a>
-                  <a href="#">Order</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <footer class="page-footer red">
-        <div class="container">
-          <div class="row">
-            <div class="col l6 s12">
-              <h5 class="white-text">About Us</h5>
-              <p class="grey-text text-lighten-4">We are an another social media that provide peoples who want to introduce their food, and another people can like, support or buy their food</p>
-            </div>
-            <div class="col l4 offset-l2 s12">
-              <h5 class="white-text">Connect</h5>
-              <ul>
-                <li><a class="grey-text text-lighten-3" href="#!"><img src="img/instagram.png" alt=""></a></li>
-                <li><a class="grey-text text-lighten-3" href="#!"><img src="img/facebook.png" alt=""></a></li></a></li>
-                <li><a class="grey-text text-lighten-3" href="#!"><img src="img/youtube.png" alt=""></a></li></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="footer-copyright">
+        <footer class="page-footer red">
           <div class="container">
-            © 2017 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#">More Links</a>
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">About Us</h5>
+                <p class="grey-text text-lighten-4">We are an another social media that provide peoples who want to introduce their food, and another people can like, support or buy their food</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Connect</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!"><img src="img/instagram.png" alt=""></a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!"><img src="img/facebook.png" alt=""></a></li></a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!"><img src="img/youtube.png" alt=""></a></li></a></li>
+                </ul>
+              </div>
+            </div>
           </div>
-        </div>
-      </footer>
+          <div class="footer-copyright">
+            <div class="container">
+              © 2017 Copyright Text
+              <a class="grey-text text-lighten-4 right" href="#">More Links</a>
+            </div>
+          </div>
+        </footer>
 
-      <!-- side-nav-bar -->
-      <ul id="slide-out" class="side-nav">
-        <li><div class="userView">
-          <div class="background">
-            <img src="img/donuts.jpg">
-          </div>
-          <a href="#!user"><img class="circle" src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg"></a>
-          <a href="#!name"><span class="white-text name">Didit Suryadi</span></a>
-          <a href="#!email"><span class="white-text email">didietsuryadi@gmail.com</span></a>
-        </div></li>
-        <li><a href="#!"><i class="material-icons">assignment_ind</i>My Info</a></li>
-        <li><a href="#!">My Food</a></li>
-        <li><div class="divider"></div></li>
-        <li><a class="subheader">Love List</a></li>
-      </ul>
+        <!-- side-nav-bar -->
+        <ul id="slide-out" class="side-nav">
+          <li><div class="userView">
+            <div class="background">
+              <img src="img/donuts.jpg">
+            </div>
+            <a href="#!user"><img class="circle" src="https://lh3.googleusercontent.com/--0pRDSlZ2z8/AAAAAAAAAAI/AAAAAAAAAAA/AMcAYi_Rhz8jZYNG8dCS79M_YPoB0oD1lg/s32-c-mo/photo.jpg"></a>
+            <a href="#!name"><span class="white-text name">Didit Suryadi</span></a>
+            <a href="#!email"><span class="white-text email">didietsuryadi@gmail.com</span></a>
+          </div></li>
+          <li><a href="#!"><i class="material-icons">assignment_ind</i>My Info</a></li>
+          <li><a href="#!">My Food</a></li>
+          <li><div class="divider"></div></li>
+          <li><a class="subheader">Love List</a></li>
+        </ul>
+      </div>
+
+      <!-- signin -->
+      <div id="signin-form" class="webui-popover-content">
+        <form action="" method="post">
+            <div class="input-field">
+                <input type="text" placeholder="email">
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="password">
+            </div>
+            <button class="btn waves-effect yellow waves-light" type="submit" name="action">Login
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+      </div>
+      <!-- signup -->
+      <div id="signup-form" class="webui-popover-content">
+        <form action="" method="post">
+            <div class="input-field">
+                <input type="text" placeholder="email">
+            </div>
+            <div class="input-field">
+                <input type="password" placeholder="password">
+            </div>
+            <div class="input-field">
+                <input type="text" placeholder="name">
+            </div>
+            <button class="btn waves-effect yellow waves-light" type="submit" name="action">Login
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+      </div>
       <!--Import jQuery before materialize.js-->
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
       <script type="text/javascript" src="js/materialize.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js"></script>
+      <script src="https://unpkg.com/vue"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script type="text/javascript" src="js/index.js"></script>
       <script>
       $(document).ready(function(){
        $('.carousel.carousel-slider').carousel({fullWidth: true});
@@ -295,9 +200,10 @@
        $('.parallax').parallax();
        $('ul.tabs').tabs();
        $(".toggle").sideNav();
+       $('#signin').webuiPopover({url:'#signin-form'});
+       $('#signup').webuiPopover({url:'#signup-form'});
       });
       // Initialize collapse button
-
       </script>
     </body>
   </html>
