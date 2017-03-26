@@ -11,7 +11,8 @@ router.post('/signin', auth.login)
 
 router.post('/register', auth.register)
 
-router.post('/verify', auth.verify)
+router.post('/registerfb', auth.registerFb)
+
 
 
 module.exports = router;
