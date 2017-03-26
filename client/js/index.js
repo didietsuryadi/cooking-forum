@@ -10,9 +10,14 @@
         password: '',
         name: ''
       },
+      user:{
+        name:'',
+        email:'',
+        image:'',
+      },
       forums: [],
       token: localStorage.getItem("token"),
-      username: localStorage.getItem("username"),
+      name: localStorage.getItem("name"),
       userid: localStorage.getItem("userid")
     },
     methods: {
@@ -88,6 +93,16 @@
         axios.get('http://localhost:3000/api/forum'
       ).then(function (res) {
         app.forums = res.data
+      }).catch(function (err) {
+        console.log(err);
+      })
+    },
+    getUserOnline: function () {
+      axios.get('http://localhost:3000/api/user/'+app.userid, {headers: {token: app.token}}
+      ).then(function (res) {
+        app.user.name = res.data.name
+        app.user.email = res.data.email
+        app.user.image = res.data.image
       }).catch(function (err) {
         console.log(err);
       })
@@ -180,5 +195,5 @@
   }
   }
   })
-
+app.getUserOnline()
 app.getForum()
